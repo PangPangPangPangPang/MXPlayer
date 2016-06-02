@@ -48,10 +48,21 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
         btn.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
         btn.backgroundColor = UIColor.purpleColor()
         btn.addTarget(self, action: #selector(MXPlayerViewController.onTapStart), forControlEvents: .TouchUpInside)
+        
         self.view.addSubview(btn)
+        let btn1 = UIButton()
+        btn1.frame = CGRect.init(x: 100, y: 0, width: 50, height: 50)
+        btn1.backgroundColor = UIColor.purpleColor()
+        btn1.addTarget(self, action: #selector(MXPlayerViewController.seek), forControlEvents: .TouchUpInside)
+        self.view.addSubview(btn1)
+
     }
     func onTapStart() -> Void {
         self.play()
+    }
+    
+    func seek() {
+        self.seekToTime(duration / 2)
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,6 +104,7 @@ extension MXPlayerViewController {
         case "playbackLikelyToKeepUp":
             do {
                 bufferState = .keepUp
+                print("ready")
             }
             break
         case "playbackBufferEmpty":
@@ -138,7 +150,7 @@ extension MXPlayerViewController {
     }
     
     func seekToTime(time: NSTimeInterval) -> Void {
-        player.seekToTime(CMTimeMakeWithSeconds(time, 1), toleranceBefore: CMTimeMakeWithSeconds(0.2, 1), toleranceAfter: CMTimeMakeWithSeconds(0.2, 1)) { (result) in
+        player.seekToTime(CMTimeMakeWithSeconds(time, Int32(kCMTimeMaxTimescale)), toleranceBefore: CMTimeMakeWithSeconds(0.2, Int32(kCMTimeMaxTimescale)), toleranceAfter: CMTimeMakeWithSeconds(0.2, Int32(kCMTimeMaxTimescale))) { (result) in
             print(result)
         }
     }
