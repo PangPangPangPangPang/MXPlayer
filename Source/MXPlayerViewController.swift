@@ -9,12 +9,31 @@
 import UIKit
 import AVFoundation
 
-class MXPlayerViewController: UIViewController,MXPlayerDelegate {
+class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtocol {
     var url: NSURL?
-    
+    var player: MXPlayer!
+    var playerView: MXPlayerView!
+    var currentTime: NSTimeInterval! = 0
+    var duration: NSTimeInterval! = 0
+    var playableDuration: NSTimeInterval! = 0
+    var bufferingProgress: Int64! = 0
+    var isReady: Bool! = false
+    var movieState: MXPlayerMovieState! = .stopped
+    var loadState: MXPlayerLoadState! = .unknown
+    var numberOfBytesTransferred: Int64! = 0
+    var naturalSize: CGSize! = CGSize.init(width: 10, height: 10)
+    var scalingMode: MXPlayerScaleMode! = .aspectFit
+    var shouldAutoPlay: Bool! = false
+    var allowsMediaAirPlay :Bool! = false
+    var isDanmakuMediaAirPlay: Bool! = false
+    var airPlayMediaActive: Bool! = false
+    var playbackRate: Float! = 0
+
     init(url: NSURL?) {
         super.init(nibName: nil, bundle: nil)
         self.url = url
+        AudioSessionManager.shareInstance.audioSession()
+        self.prepareToplay()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,34 +43,81 @@ class MXPlayerViewController: UIViewController,MXPlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.yellowColor()
-        let item = AVPlayerItem.init(URL: url!);
-        let player = MXPlayer.init(item: item, delegate: self)
-        let playerView = MXPlayerView.init(player: player, frame: CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: 300));
-        self.view.addSubview(playerView)
-        player.play()
+        let btn = UIButton()
+        btn.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
+        btn.backgroundColor = UIColor.purpleColor()
+        btn.addTarget(self, action: #selector(MXPlayerViewController.onTapStart), forControlEvents: .TouchUpInside)
+        self.view.addSubview(btn)
+    }
+    func onTapStart() -> Void {
+        self.play()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension MXPlayerViewController {
     func playerObserver(item: AVPlayerItem?, keyPath: String?, change: [String : AnyObject]?) {
-        print("\(keyPath),\(change)")
+//        print("\(keyPath),\(change)")
+        switch keyPath! {
+        case "status":
+            do {
+                let status = change![NSKeyValueChangeNewKey] as! Int
+                switch status {
+                case AVPlayerItemStatus.ReadyToPlay.rawValue:
+                    loadState = .playable
+                    duration = player.duration
+                    break
+                case AVPlayerItemStatus.Failed.rawValue:
+                    loadState = .failed
+                    break
+                default:
+                    break
+                }
+                
+            }
+            break
+        case "loadedTimeRanges":
+            do {
+                print(player.availableProgress())
+                }
+            break
+        default:
+            break
+        }
     }
 }
 
+extension MXPlayerViewController {
+    func prepareToplay() -> Void {
+        let item = AVPlayerItem.init(URL: url!);
+        player = MXPlayer.init(item: item, delegate: self)
+        playerView = MXPlayerView.init(player: player, frame: UIScreen.mainScreen().bounds);
+        playerView.userInteractionEnabled = false
+        self.view.addSubview(playerView)
+    }
+    func play() -> Void {
+        player.play()
+        player.prerollAtRate(0.5) { (result) in
+            print("result:\(result)")
+        }
+    }
+    func pause() -> Void {
+        player.pause()
+    }
+    func stop() -> Void {
+        
+    }
+    func isPlayer() -> Bool {
+        return true
+    }
+    func shutDown() -> Void {
+        
+    }
+    func flashImage() -> UIImage {
+        return UIImage()
+    }
+}

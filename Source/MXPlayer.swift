@@ -9,23 +9,30 @@
 import UIKit
 import AVFoundation
 
-@objc public protocol MXPlayerDelegate: NSObjectProtocol {
-    func playerObserver(item: AVPlayerItem?, keyPath: String?, change: [String : AnyObject]?)
-    optional func playerDidEndWithNoti(Noti: NSNotification)
-    optional func playerFailedDidEndWithNoti(Noti: NSNotification)
-}
-
 class MXPlayer: AVPlayer {
-    var delegate: MXPlayerDelegate?
+    var delegate: MXPlayerCallBack?
     var currentTime: Double! = 0
-    var duration: Double! = 0
+    var duration: Double! {
+        set {
+            self.duration = newValue
+        }
+        get {
+            var cmtime = kCMTimeInvalid
+            if self.status == .ReadyToPlay {
+                cmtime = (self.currentItem?.duration)!
+            }
+            
+            let durationTime = CMTimeGetSeconds(cmtime)
+            return isnan(durationTime) ? 0:Double(durationTime)
+        }
+    }
     var progress: Double! = 0
     
     override init() {
         super.init()
     }
     
-    init(item: AVPlayerItem, delegate: MXPlayerDelegate) {
+    init(item: AVPlayerItem, delegate: MXPlayerCallBack) {
         super.init(playerItem: item)
         self.delegate = delegate
         self.addObserver()
@@ -47,10 +54,28 @@ class MXPlayer: AVPlayer {
             || keyPath != "loadedTimeRanges" else {
                 return
         }
-        guard delegate == nil || (delegate?.respondsToSelector(#selector(MXPlayerDelegate.playerObserver(_:keyPath:change:))))! else {return}
+        guard delegate != nil else {return}
         delegate?.playerObserver(object as? AVPlayerItem, keyPath: keyPath, change: change)
         
     }
     
+    func availableProgress() -> Double {
+        let bufferTime = self.availableDuration()
+        var result: Double = 0
+        guard duration > 0 else {return 0}
+        
+        result = bufferTime / self.duration;
+        return result
+    }
+    
+    func availableDuration() -> Double {
+        let ranges = self.currentItem?.loadedTimeRanges
+        guard ranges?.count > 0  else {return 0}
+        
+        let timerange = ranges![0].CMTimeRangeValue
+        let startSeconds = CMTimeGetSeconds(timerange.start)
+        let durationSeconds = CMTimeGetSeconds(timerange.duration)
+        return startSeconds + durationSeconds
+    }
     
 }
