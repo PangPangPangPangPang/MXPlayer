@@ -20,6 +20,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var isReady: Bool! = false
     var movieState: MXPlayerMovieState! = .stopped
     var loadState: MXPlayerLoadState! = .unknown
+    var bufferState: MXPlayerBufferState! = .unknown
     var numberOfBytesTransferred: Int64! = 0
     var naturalSize: CGSize! = CGSize.init(width: 10, height: 10)
     var scalingMode: MXPlayerScaleMode! = .aspectFit
@@ -61,7 +62,6 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
 
 extension MXPlayerViewController {
     func playerObserver(item: AVPlayerItem?, keyPath: String?, change: [String : AnyObject]?) {
-//        print("\(keyPath),\(change)")
         switch keyPath! {
         case "status":
             do {
@@ -82,9 +82,25 @@ extension MXPlayerViewController {
             break
         case "loadedTimeRanges":
             do {
-                print(player.availableProgress())
+                playableDuration = player.availableDuration()
                 }
             break
+        case "playbackBufferFull":
+            do {
+                bufferState = .full
+                }
+            break
+        case "playbackLikelyToKeepUp":
+            do {
+                bufferState = .keepUp
+            }
+            break
+        case "playbackBufferEmpty":
+            do {
+                bufferState = .empty
+            }
+            break;
+
         default:
             break
         }
@@ -119,5 +135,11 @@ extension MXPlayerViewController {
     }
     func flashImage() -> UIImage {
         return UIImage()
+    }
+    
+    func seekToTime(time: NSTimeInterval) -> Void {
+        player.seekToTime(CMTimeMakeWithSeconds(time, 1), toleranceBefore: CMTimeMakeWithSeconds(0.2, 1), toleranceAfter: CMTimeMakeWithSeconds(0.2, 1)) { (result) in
+            print(result)
+        }
     }
 }

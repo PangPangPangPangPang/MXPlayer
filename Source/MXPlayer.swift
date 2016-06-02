@@ -36,9 +36,28 @@ class MXPlayer: AVPlayer {
         super.init(playerItem: item)
         self.delegate = delegate
         self.addObserver()
+        self.addItemObserver()
+    }
+    func addNoti() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MXPlayer.playToEndNoti(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.currentItem)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MXPlayer.addObserver), name: AVPlayerItemFailedToPlayToEndTimeNotification, object: self.currentItem)
+    }
+    
+    func playToEndNoti(noti: NSNotification) -> Void {
+        delegate?.playerDidEndWithNoti(noti)
+    }
+    
+    func faildePlayToEndNoti(noti: NSNotification) -> Void {
+        delegate?.playerFailedDidEndWithNoti(noti)
     }
     
     func addObserver() {
+        self.addObserver(self, forKeyPath: "airPlayVideoActive", options: .New, context: nil)
+        self.addObserver(self, forKeyPath: "externalPlaybackActive", options: .New, context: nil)
+
+    }
+    
+    func addItemObserver() {
         self.currentItem?.addObserver(self, forKeyPath: "status", options: .New, context: nil)
         self.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .New, context: nil)
         self.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
@@ -54,9 +73,7 @@ class MXPlayer: AVPlayer {
             || keyPath != "loadedTimeRanges" else {
                 return
         }
-        guard delegate != nil else {return}
         delegate?.playerObserver(object as? AVPlayerItem, keyPath: keyPath, change: change)
-        
     }
     
     func availableProgress() -> Double {

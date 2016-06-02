@@ -32,3 +32,7 @@ enum MXPlayerTimeOption {
 enum MXPlayerLoadState {
     case unknown, playable, throughOK, stalled, failed
 }
+
+enum MXPlayerBufferState {
+    case unknown, empty, keepUp, full
+}

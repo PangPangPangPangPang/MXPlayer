@@ -17,6 +17,7 @@ protocol MXPlayerProtocol {
     func isPlayer() -> Bool
     func shutDown() -> Void
     func flashImage() -> UIImage
+    func seekToTime(time: NSTimeInterval) -> Void
     
     var player: MXPlayer!{get}
     var playerView: MXPlayerView!{get}
@@ -27,6 +28,7 @@ protocol MXPlayerProtocol {
     var isReady: Bool!{get}
     var movieState: MXPlayerMovieState!{get}
     var loadState: MXPlayerLoadState!{get}
+    var bufferState: MXPlayerBufferState!{get}
     var numberOfBytesTransferred: Int64!{get}
     var naturalSize: CGSize!{get}
     var scalingMode: MXPlayerScaleMode!{get set}
