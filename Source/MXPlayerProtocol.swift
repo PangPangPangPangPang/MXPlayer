@@ -24,12 +24,9 @@ protocol MXPlayerProtocol {
     var currentTime: NSTimeInterval!{get set}
     var duration: NSTimeInterval!{get}
     var playableDuration: NSTimeInterval!{get}
-    var bufferingProgress: Int64!{get}
-    var isReady: Bool!{get}
     var movieState: MXPlayerMovieState!{get}
     var loadState: MXPlayerLoadState!{get}
     var bufferState: MXPlayerBufferState!{get}
-    var numberOfBytesTransferred: Int64!{get}
     var naturalSize: CGSize!{get}
     var scalingMode: MXPlayerScaleMode!{get set}
     var shouldAutoPlay: Bool!{get set}
@@ -43,6 +40,7 @@ protocol MXPlayerCallBack {
     func playerObserver(item: AVPlayerItem?, keyPath: String?, change: [String : AnyObject]?)
     func playerDidEndWithNoti(Noti: NSNotification)
     func playerFailedDidEndWithNoti(Noti: NSNotification)
+    func playerPlayWithTime(time: CMTime)
 }
 
 extension MXPlayerCallBack {
@@ -57,4 +55,6 @@ extension MXPlayerCallBack {
 
 protocol MXPlayerSubClazzProtocol {
     func playableDurationDidChange()
+    func playDurationDidChange(rate: Float, second: NSTimeInterval)
+
 }

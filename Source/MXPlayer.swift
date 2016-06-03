@@ -11,11 +11,9 @@ import AVFoundation
 
 class MXPlayer: AVPlayer {
     var delegate: MXPlayerCallBack?
+    var timeObserver: AnyObject?
     var currentTime: Double! = 0
     var duration: Double! {
-        set {
-            self.duration = newValue
-        }
         get {
             var cmtime = kCMTimeInvalid
             if self.status == .ReadyToPlay {
@@ -60,6 +58,11 @@ class MXPlayer: AVPlayer {
                          forKeyPath: "externalPlaybackActive",
                          options: .New,
                          context: nil)
+        
+         timeObserver = self.addPeriodicTimeObserverForInterval(CMTimeMake(1, 1),
+                                                queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 1)) { (time) in
+                                                    self.delegate?.playerPlayWithTime(time)
+        }
 
     }
     
@@ -95,6 +98,7 @@ class MXPlayer: AVPlayer {
         self.currentItem?.removeObserver(self, forKeyPath: "loadedTimeRanges")
         self.removeObserver(self, forKeyPath: "airPlayVideoActive")
         self.removeObserver(self, forKeyPath: "externalPlaybackActive")
+        self.removeTimeObserver(timeObserver!)
     }
     
     override func observeValueForKeyPath(keyPath: String?,

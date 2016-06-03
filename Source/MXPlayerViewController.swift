@@ -18,10 +18,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var currentTime: NSTimeInterval! = 0
     var duration: NSTimeInterval! = 0
     var playableDuration: NSTimeInterval! = 0
-    var bufferingProgress: Int64! = 0
-    var isReady: Bool! = false
     var loadState: MXPlayerLoadState! = .unknown
-    var numberOfBytesTransferred: Int64! = 0
     var naturalSize: CGSize! = CGSize.init(width: 10, height: 10)
     var scalingMode: MXPlayerScaleMode! = .aspectFit
     var shouldAutoPlay: Bool! = false
@@ -30,11 +27,8 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var airPlayMediaActive: Bool! = false
     var playbackRate: Float! = 0
     var bufferState: MXPlayerBufferState! {
-        get {
-            return self.bufferState ?? .unknown
-        }
-        set {
-            switch newValue as MXPlayerBufferState {
+        didSet {
+            switch bufferState as MXPlayerBufferState {
             case .unknown:
                 break
             case .empty:
@@ -44,23 +38,46 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
             case .full:
                 break
             }
+            print("bufferState:\(bufferState)")
+
         }
     }
     
     var movieState: MXPlayerMovieState! {
-        get {
-            return self.movieState ?? .stopped
+        didSet {
+            print(movieState)
         }
-        set {
-            print(newValue)
+    }
+    
+    var canPlayFastForward: Bool? {
+        get {
+            return self.player.currentItem?.canPlayFastForward
         }
     }
 
+    var canPlaySlowForward: Bool? {
+        get {
+            return self.player.currentItem?.canPlaySlowForward
+        }
+    }
+    
+    var canPlayFastReverse: Bool? {
+        get {
+            return self.player.currentItem?.canPlayFastReverse
+        }
+    }
+    
+    var canPlaySlowReverse: Bool? {
+        get {
+            return self.player.currentItem?.canPlaySlowReverse
+        }
+    }
     
     init(url: NSURL?) {
         super.init(nibName: nil, bundle: nil)
         self.url = url
         bufferState = .unknown
+        movieState = .stopped
         AudioSessionManager.shareInstance.audioSession()
         self.prepareToplay(nil)
     }
@@ -104,6 +121,7 @@ extension MXPlayerViewController {
         case "playbackLikelyToKeepUp":
             do {
                 bufferState = .keepUp
+                loadState = .playable
             }
             break
         case "playbackBufferEmpty":
@@ -116,6 +134,13 @@ extension MXPlayerViewController {
             break
         }
     }
+    
+    func playerPlayWithTime(time: CMTime) {
+        currentTime = CMTimeGetSeconds(time)
+        playbackRate = Float(currentTime) / Float(duration)
+        self.playDurationDidChange(playbackRate, second: currentTime)
+    }
+
 }
 
 extension MXPlayerViewController {
@@ -133,15 +158,19 @@ extension MXPlayerViewController {
         }
     }
     func play() -> Void {
-        player.play()
-        movieState = .playing
+        if loadState == MXPlayerLoadState.playable
+        && movieState != MXPlayerMovieState.playing {
+            player.play()
+            movieState = .playing
+        }
     }
     func pause() -> Void {
         player.pause()
         movieState = .paused
     }
     func stop() -> Void {
-        
+        player.setRate(0, time: kCMTimeInvalid, atHostTime: kCMTimeInvalid)
+        movieState = .stopped
     }
     func isPlayer() -> Bool {
         return movieState == MXPlayerMovieState.playing
@@ -164,4 +193,5 @@ extension MXPlayerViewController {
 }
 extension MXPlayerViewSubClazzImp {
     func playableDurationDidChange() {}
+    func playDurationDidChange(rate: Float, second: NSTimeInterval) {}
 }

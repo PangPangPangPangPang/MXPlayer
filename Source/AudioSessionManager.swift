@@ -16,10 +16,10 @@ class AudioSessionManager: NSObject {
     
     func audioSession() -> Void {
         if !iniatialized {
-                    NSNotificationCenter.defaultCenter().addObserver(AudioSessionManager.shareInstance,
-                                                                     selector: #selector(AudioSessionManager.handleInterrupt(_:)),
-                                                                     name: AVAudioSessionInterruptionNotification,
-                                                                     object: AVAudioSession.sharedInstance())
+            NSNotificationCenter.defaultCenter().addObserver(AudioSessionManager.shareInstance,
+                                                             selector: #selector(AudioSessionManager.handleInterrupt(_:)),
+                                                             name: AVAudioSessionInterruptionNotification,
+                                                             object: AVAudioSession.sharedInstance())
             iniatialized = true
         }
         do {
