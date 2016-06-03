@@ -52,20 +52,44 @@ class MXPlayer: AVPlayer {
     }
     
     func addObserver() {
-        self.addObserver(self, forKeyPath: "airPlayVideoActive", options: .New, context: nil)
-        self.addObserver(self, forKeyPath: "externalPlaybackActive", options: .New, context: nil)
+        self.addObserver(self,
+                         forKeyPath: "airPlayVideoActive",
+                         options: .New,
+                         context: nil)
+        self.addObserver(self,
+                         forKeyPath: "externalPlaybackActive",
+                         options: .New,
+                         context: nil)
 
     }
     
     func addItemObserver() {
-        self.currentItem?.addObserver(self, forKeyPath: "status", options: .New, context: nil)
-        self.currentItem?.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .New, context: nil)
-        self.currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .New, context: nil)
-        self.currentItem?.addObserver(self, forKeyPath: "playbackBufferFull", options: .New, context: nil)
-        self.currentItem?.addObserver(self, forKeyPath: "loadedTimeRanges", options: .New, context: nil)
+        self.currentItem?.addObserver(self,
+                                      forKeyPath: "status",
+                                      options: .New,
+                                      context: nil)
+        self.currentItem?.addObserver(self,
+                                      forKeyPath: "playbackBufferEmpty",
+                                      options: .New,
+                                      context: nil)
+        self.currentItem?.addObserver(self,
+                                      forKeyPath: "playbackLikelyToKeepUp",
+                                      options: .New,
+                                      context: nil)
+        self.currentItem?.addObserver(self,
+                                      forKeyPath: "playbackBufferFull",
+                                      options: .New,
+                                      context: nil)
+        self.currentItem?.addObserver(self,
+                                      forKeyPath: "loadedTimeRanges",
+                                      options: .New,
+                                      context: nil)
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?,
+                                         ofObject object: AnyObject?,
+                                                  change: [String : AnyObject]?,
+                                                  context: UnsafeMutablePointer<Void>) {
         guard keyPath != "status"
             || keyPath != "playbackBufferEmpty"
             || keyPath != "playbackBufferFull"
@@ -73,7 +97,9 @@ class MXPlayer: AVPlayer {
             || keyPath != "loadedTimeRanges" else {
                 return
         }
-        delegate?.playerObserver(object as? AVPlayerItem, keyPath: keyPath, change: change)
+        delegate?.playerObserver(object as? AVPlayerItem,
+                                 keyPath: keyPath,
+                                 change: change)
     }
     
     func availableProgress() -> Double {

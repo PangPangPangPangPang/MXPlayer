@@ -10,6 +10,7 @@
 		501F160A1CFD911F006816FC /* MXPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501F16091CFD911F006816FC /* MXPlayerProtocol.swift */; };
 		507A09501D0006C200C751A7 /* MXPlayerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A094F1D0006C200C751A7 /* MXPlayerEnum.swift */; };
 		507A09531D000C4A00C751A7 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A09521D000C4A00C751A7 /* AudioSessionManager.swift */; };
+		5082DFF81D016EA600B929C6 /* UIPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */; };
 		50EA8FD91CEEBCF700D50C4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA8FD81CEEBCF700D50C4F /* AppDelegate.swift */; };
 		50EA8FDB1CEEBCF700D50C4F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA8FDA1CEEBCF700D50C4F /* ViewController.swift */; };
 		50EA8FDE1CEEBCF700D50C4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50EA8FDC1CEEBCF700D50C4F /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		501F16091CFD911F006816FC /* MXPlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerProtocol.swift; sourceTree = "<group>"; };
 		507A094F1D0006C200C751A7 /* MXPlayerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerEnum.swift; sourceTree = "<group>"; };
 		507A09521D000C4A00C751A7 /* AudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
+		5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPlayerViewController.swift; sourceTree = "<group>"; };
 		50EA8FD51CEEBCF700D50C4F /* MXPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MXPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50EA8FD81CEEBCF700D50C4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50EA8FDA1CEEBCF700D50C4F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				50EA8FD81CEEBCF700D50C4F /* AppDelegate.swift */,
 				50EA8FDA1CEEBCF700D50C4F /* ViewController.swift */,
+				5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */,
 				50EA8FDC1CEEBCF700D50C4F /* Main.storyboard */,
 				50EA8FE21CEEBCF700D50C4F /* Assets.xcassets */,
 				50EA8FE41CEEBCF700D50C4F /* LaunchScreen.storyboard */,
@@ -299,6 +302,7 @@
 				50EA90131CEEBDED00D50C4F /* MXPlayer.swift in Sources */,
 				507A09501D0006C200C751A7 /* MXPlayerEnum.swift in Sources */,
 				501F160A1CFD911F006816FC /* MXPlayerProtocol.swift in Sources */,
+				5082DFF81D016EA600B929C6 /* UIPlayerViewController.swift in Sources */,
 				50EA90191CEEEDA800D50C4F /* MXPlayerViewController.swift in Sources */,
 				50EA90171CEEE6C200D50C4F /* MXPlayerView.swift in Sources */,
 			);

@@ -54,3 +54,7 @@ extension MXPlayerCallBack {
     }
 
 }
+
+protocol MXPlayerSubClazzProtocol {
+    func playableDurationDidChange()
+}

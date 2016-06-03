@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     }
     
     func action() {
-        let controller = MXPlayerViewController.init(url: NSURL.init(string: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"))
+        let controller = UIPlayerViewController.init(url: NSURL.init(string: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"))
         self.presentViewController(controller, animated: true, completion: nil)
     }
 

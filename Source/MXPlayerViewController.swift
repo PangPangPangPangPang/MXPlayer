@@ -9,7 +9,9 @@
 import UIKit
 import AVFoundation
 
-class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtocol {
+typealias MXPlayerViewSubClazzImp = MXPlayerViewController
+
+class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtocol,MXPlayerSubClazzProtocol {
     var url: NSURL?
     var player: MXPlayer!
     var playerView: MXPlayerView!
@@ -20,7 +22,6 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var isReady: Bool! = false
     var movieState: MXPlayerMovieState! = .stopped
     var loadState: MXPlayerLoadState! = .unknown
-    var bufferState: MXPlayerBufferState! = .unknown
     var numberOfBytesTransferred: Int64! = 0
     var naturalSize: CGSize! = CGSize.init(width: 10, height: 10)
     var scalingMode: MXPlayerScaleMode! = .aspectFit
@@ -29,10 +30,29 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var isDanmakuMediaAirPlay: Bool! = false
     var airPlayMediaActive: Bool! = false
     var playbackRate: Float! = 0
-
+    var bufferState: MXPlayerBufferState! {
+        get {
+            return self.bufferState
+        }
+        set {
+            switch newValue as MXPlayerBufferState {
+            case .unknown:
+                break
+            case .empty:
+                break
+            case .keepUp:
+                break
+            case .full:
+                break
+            }
+            print(newValue)
+        }
+    }
+    
     init(url: NSURL?) {
         super.init(nibName: nil, bundle: nil)
         self.url = url
+        bufferState = .unknown
         AudioSessionManager.shareInstance.audioSession()
         self.prepareToplay()
     }
@@ -40,31 +60,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.yellowColor()
-        let btn = UIButton()
-        btn.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
-        btn.backgroundColor = UIColor.purpleColor()
-        btn.addTarget(self, action: #selector(MXPlayerViewController.onTapStart), forControlEvents: .TouchUpInside)
-        
-        self.view.addSubview(btn)
-        let btn1 = UIButton()
-        btn1.frame = CGRect.init(x: 100, y: 0, width: 50, height: 50)
-        btn1.backgroundColor = UIColor.purpleColor()
-        btn1.addTarget(self, action: #selector(MXPlayerViewController.seek), forControlEvents: .TouchUpInside)
-        self.view.addSubview(btn1)
-
-    }
-    func onTapStart() -> Void {
-        self.play()
-    }
     
-    func seek() {
-        self.seekToTime(duration / 2)
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -94,17 +90,17 @@ extension MXPlayerViewController {
         case "loadedTimeRanges":
             do {
                 playableDuration = player.availableDuration()
-                }
+                self.playableDurationDidChange()
+            }
             break
         case "playbackBufferFull":
             do {
                 bufferState = .full
-                }
+            }
             break
         case "playbackLikelyToKeepUp":
             do {
                 bufferState = .keepUp
-                print("ready")
             }
             break
         case "playbackBufferEmpty":
@@ -112,7 +108,7 @@ extension MXPlayerViewController {
                 bufferState = .empty
             }
             break;
-
+            
         default:
             break
         }
@@ -129,18 +125,17 @@ extension MXPlayerViewController {
     }
     func play() -> Void {
         player.play()
-        player.prerollAtRate(0.5) { (result) in
-            print("result:\(result)")
-        }
+        movieState = .playing
     }
     func pause() -> Void {
         player.pause()
+        movieState = .paused
     }
     func stop() -> Void {
         
     }
     func isPlayer() -> Bool {
-        return true
+        return movieState == MXPlayerMovieState.playing
     }
     func shutDown() -> Void {
         
@@ -150,8 +145,15 @@ extension MXPlayerViewController {
     }
     
     func seekToTime(time: NSTimeInterval) -> Void {
-        player.seekToTime(CMTimeMakeWithSeconds(time, Int32(kCMTimeMaxTimescale)), toleranceBefore: CMTimeMakeWithSeconds(0.2, Int32(kCMTimeMaxTimescale)), toleranceAfter: CMTimeMakeWithSeconds(0.2, Int32(kCMTimeMaxTimescale))) { (result) in
-            print(result)
+        player.seekToTime(CMTimeMakeWithSeconds(time, Int32(kCMTimeMaxTimescale)),
+                          toleranceBefore: CMTimeMakeWithSeconds(0.2, Int32(kCMTimeMaxTimescale)),
+                          toleranceAfter: CMTimeMakeWithSeconds(0.2, Int32(kCMTimeMaxTimescale))) {
+                            (result) in
+                            print(result)
         }
     }
+    
+}
+extension MXPlayerViewSubClazzImp {
+    func playableDurationDidChange() {}
 }
