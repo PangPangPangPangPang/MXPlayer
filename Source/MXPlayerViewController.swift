@@ -32,14 +32,15 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
             case .unknown:
                 break
             case .empty:
+                self.playableBufferBecomeEmpty()
                 break
             case .keepUp:
+                self.playableBufferBecomeKeepUp()
                 break
             case .full:
                 break
             }
             print("bufferState:\(bufferState)")
-
         }
     }
     
@@ -79,7 +80,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
         bufferState = .unknown
         movieState = .stopped
         AudioSessionManager.shareInstance.audioSession()
-        self.prepareToplay(nil)
+        self.prepareToplay(self.url)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -136,6 +137,8 @@ extension MXPlayerViewController {
     }
     
     func playerPlayWithTime(time: CMTime) {
+        guard duration != 0 else {return}
+
         currentTime = CMTimeGetSeconds(time)
         playbackRate = Float(currentTime) / Float(duration)
         self.playDurationDidChange(playbackRate, second: currentTime)
@@ -194,4 +197,7 @@ extension MXPlayerViewController {
 extension MXPlayerViewSubClazzImp {
     func playableDurationDidChange() {}
     func playDurationDidChange(rate: Float, second: NSTimeInterval) {}
+    func playableBufferBecomeEmpty() {}
+    func playableBufferBecomeKeepUp() {}
+
 }

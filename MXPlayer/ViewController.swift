@@ -9,7 +9,8 @@
 import UIKit
 
 let videoUrl = "http://api.sina.cn/sinago/video_location.json?sf_i=4&video_id=250616284-140244581&video_play_url=http%3A%2F%2Fask.ivideo.sina.com.cn%2Fv_play_ipad.php%3Fvid%3D140244581&tags=newsapp_iPhone&fromsinago=1&postt=news_news_news_10&from=6051093012"
-
+let appleVideoUrl = "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"
+let localVideoUrl = NSBundle.mainBundle().pathForResource("anim_page_transformer_zoomout", ofType: "mp4")
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -22,7 +23,8 @@ class ViewController: UIViewController {
     }
     
     func action() {
-        let controller = UIPlayerViewController.init(url: NSURL.init(string: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8"))
+        let controller = UIPlayerViewController.init(url: NSURL.init(
+            string: appleVideoUrl))
         self.presentViewController(controller, animated: true, completion: nil)
     }
 

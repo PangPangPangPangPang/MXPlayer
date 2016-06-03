@@ -55,6 +55,8 @@ extension MXPlayerCallBack {
 
 protocol MXPlayerSubClazzProtocol {
     func playableDurationDidChange()
+    func playableBufferBecomeEmpty()
+    func playableBufferBecomeKeepUp()
     func playDurationDidChange(rate: Float, second: NSTimeInterval)
 
 }

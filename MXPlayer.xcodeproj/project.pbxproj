@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		501F160A1CFD911F006816FC /* MXPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501F16091CFD911F006816FC /* MXPlayerProtocol.swift */; };
+		5068F02D1D01D8340055896A /* anim_page_transformer_zoomout.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5068F02C1D01D8340055896A /* anim_page_transformer_zoomout.mp4 */; };
 		507A09501D0006C200C751A7 /* MXPlayerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A094F1D0006C200C751A7 /* MXPlayerEnum.swift */; };
 		507A09531D000C4A00C751A7 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A09521D000C4A00C751A7 /* AudioSessionManager.swift */; };
 		5082DFF81D016EA600B929C6 /* UIPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */; };
@@ -17,8 +18,6 @@
 		50EA8FE11CEEBCF700D50C4F /* MXPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50EA8FDF1CEEBCF700D50C4F /* MXPlayer.xcdatamodeld */; };
 		50EA8FE31CEEBCF700D50C4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50EA8FE21CEEBCF700D50C4F /* Assets.xcassets */; };
 		50EA8FE61CEEBCF700D50C4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50EA8FE41CEEBCF700D50C4F /* LaunchScreen.storyboard */; };
-		50EA8FF11CEEBCF700D50C4F /* MXPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA8FF01CEEBCF700D50C4F /* MXPlayerTests.swift */; };
-		50EA8FFC1CEEBCF700D50C4F /* MXPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA8FFB1CEEBCF700D50C4F /* MXPlayerUITests.swift */; };
 		50EA900B1CEEBD5100D50C4F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50EA900A1CEEBD5100D50C4F /* AVFoundation.framework */; };
 		50EA90131CEEBDED00D50C4F /* MXPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA90121CEEBDED00D50C4F /* MXPlayer.swift */; };
 		50EA90171CEEE6C200D50C4F /* MXPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA90161CEEE6C200D50C4F /* MXPlayerView.swift */; };
@@ -44,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		501F16091CFD911F006816FC /* MXPlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerProtocol.swift; sourceTree = "<group>"; };
+		5068F02C1D01D8340055896A /* anim_page_transformer_zoomout.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = anim_page_transformer_zoomout.mp4; sourceTree = "<group>"; };
 		507A094F1D0006C200C751A7 /* MXPlayerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerEnum.swift; sourceTree = "<group>"; };
 		507A09521D000C4A00C751A7 /* AudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPlayerViewController.swift; sourceTree = "<group>"; };
@@ -56,11 +56,7 @@
 		50EA8FE51CEEBCF700D50C4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50EA8FE71CEEBCF700D50C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50EA8FEC1CEEBCF700D50C4F /* MXPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MXPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		50EA8FF01CEEBCF700D50C4F /* MXPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MXPlayerTests.swift; sourceTree = "<group>"; };
-		50EA8FF21CEEBCF700D50C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50EA8FF71CEEBCF700D50C4F /* MXPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MXPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		50EA8FFB1CEEBCF700D50C4F /* MXPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MXPlayerUITests.swift; sourceTree = "<group>"; };
-		50EA8FFD1CEEBCF700D50C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50EA900A1CEEBD5100D50C4F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		50EA90121CEEBDED00D50C4F /* MXPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayer.swift; sourceTree = "<group>"; };
 		50EA90161CEEE6C200D50C4F /* MXPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerView.swift; sourceTree = "<group>"; };
@@ -96,11 +92,10 @@
 		50EA8FCC1CEEBCF700D50C4F = {
 			isa = PBXGroup;
 			children = (
+				5068F02C1D01D8340055896A /* anim_page_transformer_zoomout.mp4 */,
 				50EA900A1CEEBD5100D50C4F /* AVFoundation.framework */,
 				50EA90091CEEBD1400D50C4F /* Source */,
 				50EA8FD71CEEBCF700D50C4F /* MXPlayer */,
-				50EA8FEF1CEEBCF700D50C4F /* MXPlayerTests */,
-				50EA8FFA1CEEBCF700D50C4F /* MXPlayerUITests */,
 				50EA8FD61CEEBCF700D50C4F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -128,24 +123,6 @@
 				50EA8FDF1CEEBCF700D50C4F /* MXPlayer.xcdatamodeld */,
 			);
 			path = MXPlayer;
-			sourceTree = "<group>";
-		};
-		50EA8FEF1CEEBCF700D50C4F /* MXPlayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				50EA8FF01CEEBCF700D50C4F /* MXPlayerTests.swift */,
-				50EA8FF21CEEBCF700D50C4F /* Info.plist */,
-			);
-			path = MXPlayerTests;
-			sourceTree = "<group>";
-		};
-		50EA8FFA1CEEBCF700D50C4F /* MXPlayerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				50EA8FFB1CEEBCF700D50C4F /* MXPlayerUITests.swift */,
-				50EA8FFD1CEEBCF700D50C4F /* Info.plist */,
-			);
-			path = MXPlayerUITests;
 			sourceTree = "<group>";
 		};
 		50EA90091CEEBD1400D50C4F /* Source */ = {
@@ -229,7 +206,7 @@
 				TargetAttributes = {
 					50EA8FD41CEEBCF700D50C4F = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 5YE49927W6;
+						DevelopmentTeam = 88EC9U684R;
 					};
 					50EA8FEB1CEEBCF700D50C4F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -269,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50EA8FE61CEEBCF700D50C4F /* LaunchScreen.storyboard in Resources */,
+				5068F02D1D01D8340055896A /* anim_page_transformer_zoomout.mp4 in Resources */,
 				50EA8FE31CEEBCF700D50C4F /* Assets.xcassets in Resources */,
 				50EA8FDE1CEEBCF700D50C4F /* Main.storyboard in Resources */,
 			);
@@ -312,7 +290,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50EA8FF11CEEBCF700D50C4F /* MXPlayerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +297,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50EA8FFC1CEEBCF700D50C4F /* MXPlayerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,10 +424,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MXPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.sina.MXPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.com.MXPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -459,10 +438,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MXPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.com.sina.MXPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.com.MXPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
