@@ -20,7 +20,6 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var playableDuration: NSTimeInterval! = 0
     var bufferingProgress: Int64! = 0
     var isReady: Bool! = false
-    var movieState: MXPlayerMovieState! = .stopped
     var loadState: MXPlayerLoadState! = .unknown
     var numberOfBytesTransferred: Int64! = 0
     var naturalSize: CGSize! = CGSize.init(width: 10, height: 10)
@@ -32,7 +31,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var playbackRate: Float! = 0
     var bufferState: MXPlayerBufferState! {
         get {
-            return self.bufferState
+            return self.bufferState ?? .unknown
         }
         set {
             switch newValue as MXPlayerBufferState {
@@ -45,25 +44,29 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
             case .full:
                 break
             }
+        }
+    }
+    
+    var movieState: MXPlayerMovieState! {
+        get {
+            return self.movieState ?? .stopped
+        }
+        set {
             print(newValue)
         }
     }
+
     
     init(url: NSURL?) {
         super.init(nibName: nil, bundle: nil)
         self.url = url
         bufferState = .unknown
         AudioSessionManager.shareInstance.audioSession()
-        self.prepareToplay()
+        self.prepareToplay(nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
@@ -116,12 +119,18 @@ extension MXPlayerViewController {
 }
 
 extension MXPlayerViewController {
-    func prepareToplay() -> Void {
-        let item = AVPlayerItem.init(URL: url!);
-        player = MXPlayer.init(item: item, delegate: self)
-        playerView = MXPlayerView.init(player: player, frame: UIScreen.mainScreen().bounds);
-        playerView.userInteractionEnabled = false
-        self.view.addSubview(playerView)
+    func prepareToplay(url: NSURL?) -> Void {
+        let item = AVPlayerItem.init(URL: url ?? self.url!);
+        if player == nil {
+            player = MXPlayer.init(item: item, delegate: self)
+            playerView = MXPlayerView.init(player: player, frame: UIScreen.mainScreen().bounds);
+            playerView.userInteractionEnabled = false
+            self.view.addSubview(playerView)
+        } else {
+            self.pause()
+            player.changePlayerItem(item)
+            self.play()
+        }
     }
     func play() -> Void {
         player.play()
@@ -152,7 +161,6 @@ extension MXPlayerViewController {
                             print(result)
         }
     }
-    
 }
 extension MXPlayerViewSubClazzImp {
     func playableDurationDidChange() {}

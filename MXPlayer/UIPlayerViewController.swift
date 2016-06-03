@@ -63,9 +63,11 @@ class UIPlayerViewController: MXPlayerViewController {
     }
     
     func confirm() {
-        textField.resignFirstResponder()
-        let t = NSTimeInterval(textField.text!) ?? 0
-        self.seekToTime(t * player.duration)
+        self.prepareToplay(NSURL.init(string: videoUrl))
+        return
+//        textField.resignFirstResponder()
+//        let t = NSTimeInterval(textField.text!) ?? 0
+//        self.seekToTime(t * player.duration)
     }
 }
 

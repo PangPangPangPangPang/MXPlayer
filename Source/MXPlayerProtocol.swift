@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol MXPlayerProtocol {
-    func prepareToplay() -> Void
+    func prepareToplay(url: NSURL?) -> Void
     func play() -> Void
     func pause() -> Void
     func stop() -> Void

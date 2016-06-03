@@ -86,6 +86,17 @@ class MXPlayer: AVPlayer {
                                       context: nil)
     }
     
+    func removeObserver() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        self.currentItem?.removeObserver(self, forKeyPath: "status")
+        self.currentItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty")
+        self.currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
+        self.currentItem?.removeObserver(self, forKeyPath: "playbackBufferFull")
+        self.currentItem?.removeObserver(self, forKeyPath: "loadedTimeRanges")
+        self.removeObserver(self, forKeyPath: "airPlayVideoActive")
+        self.removeObserver(self, forKeyPath: "externalPlaybackActive")
+    }
+    
     override func observeValueForKeyPath(keyPath: String?,
                                          ofObject object: AnyObject?,
                                                   change: [String : AnyObject]?,
@@ -120,5 +131,16 @@ class MXPlayer: AVPlayer {
         let durationSeconds = CMTimeGetSeconds(timerange.duration)
         return startSeconds + durationSeconds
     }
-    
+}
+
+extension MXPlayer {
+    func changePlayerItem(item: AVPlayerItem) {
+        guard self.currentItem != item else {return}
+        
+        self.removeObserver()
+        self.replaceCurrentItemWithPlayerItem(item)
+        
+        self.addObserver()
+        self.addItemObserver()
+    }
 }
