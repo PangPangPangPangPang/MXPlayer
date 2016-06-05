@@ -23,11 +23,12 @@ class ViewController: UIViewController {
     }
     
     func action() {
-        print(NSURL.init(
-            string: localVideoUrl))
         let controller = UIPlayerViewController.init(url: NSURL.init(
             string: appleVideoUrl))
-        self.presentViewController(controller, animated: true, completion: nil)
+        controller.willMoveToParentViewController(self)
+        controller.originFrame = CGRectMake(0, 0, self.view.frame.size.width, 300)
+        self.view.addSubview(controller.view)
+        controller.didMoveToParentViewController(self)
     }
 
     override func didReceiveMemoryWarning() {

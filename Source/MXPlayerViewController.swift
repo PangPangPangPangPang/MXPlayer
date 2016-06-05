@@ -19,7 +19,11 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var duration: NSTimeInterval! = 0
     var playableDuration: NSTimeInterval! = 0
     var loadState: MXPlayerLoadState! = .unknown
-    var originFrame: CGRect! = CGRectZero
+    var originFrame: CGRect! {
+        didSet {
+            playerView.frame = originFrame
+        }
+    }
     var scalingMode: MXPlayerScaleMode! {
         didSet {
             let layer = playerView.layer as! AVPlayerLayer
@@ -36,6 +40,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
             }
         }
     }
+    
     var shouldAutoPlay: Bool! = false
     var allowsMediaAirPlay :Bool! = false
     var isDanmakuMediaAirPlay: Bool! = false
@@ -59,11 +64,11 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
         }
     }
     
-    var orientationLandScapeLeft: Bool! {
+    var orientationLandScapeRight: Bool! {
         didSet {
             let value: Int!
-            if orientationLandScapeLeft == true {
-                value = UIInterfaceOrientation.LandscapeLeft.rawValue
+            if orientationLandScapeRight == true {
+                value = UIInterfaceOrientation.LandscapeRight.rawValue
                 UIDevice.currentDevice().setValue(value, forKey: "orientation")
                 playerView.frame = UIScreen.mainScreen().bounds
             } else {
@@ -107,7 +112,7 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     init(url: NSURL?) {
         super.init(nibName: nil, bundle: nil)
         self.url = url
-        orientationLandScapeLeft = false
+        orientationLandScapeRight = false
         scalingMode = .Fill
         bufferState = .unknown
         movieState = .stopped
@@ -183,7 +188,7 @@ extension MXPlayerViewController {
         let item = AVPlayerItem.init(URL: url ?? self.url!);
         if player == nil {
             player = MXPlayer.init(item: item, delegate: self)
-            playerView = MXPlayerView.init(player: player, frame: UIScreen.mainScreen().bounds);
+            playerView = MXPlayerView.init(player: player, frame: self.view.bounds);
             originFrame = playerView.frame
             playerView.userInteractionEnabled = false
             self.view.addSubview(playerView)

@@ -35,21 +35,21 @@ class UIPlayerViewController: MXPlayerViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         let btn = UIButton.init(type: .Custom)
         btn.setTitle("start", forState: .Normal)
-        btn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        btn.setTitleColor(UIColor.yellowColor(), forState: .Normal)
         btn.frame = CGRect.init(x: 0, y: 20, width: 50, height: 50)
         btn.addTarget(self, action: #selector(UIPlayerViewController.onTapStart), forControlEvents: .TouchUpInside)
         self.view.addSubview(btn)
         
         let pausebtn = UIButton.init(type: .Custom)
         pausebtn.setTitle("pause", forState: .Normal)
-        pausebtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        pausebtn.setTitleColor(UIColor.yellowColor(), forState: .Normal)
         pausebtn.frame = CGRect.init(x: 70, y: 20, width: 50, height: 50)
         pausebtn.addTarget(self, action: #selector(UIPlayerViewController.onTapPause), forControlEvents: .TouchUpInside)
         self.view.addSubview(pausebtn)
 
         let scalebtn = UIButton.init(type: .Custom)
         scalebtn.setTitle("scale", forState: .Normal)
-        scalebtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        scalebtn.setTitleColor(UIColor.yellowColor(), forState: .Normal)
         scalebtn.frame = CGRect.init(x: 120, y: 20, width: 50, height: 50)
         scalebtn.addTarget(self, action: #selector(UIPlayerViewController.onTapScale), forControlEvents: .TouchUpInside)
         self.view.addSubview(scalebtn)
@@ -106,7 +106,7 @@ extension UIPlayerViewController {
     }
     
     func onTapScale() -> Void {
-        self.orientationLandScapeLeft = !orientationLandScapeLeft
+        self.orientationLandScapeRight = !orientationLandScapeRight
 //        self.switchScaleMode(.aspectFill)
     }
 
