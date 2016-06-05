@@ -43,9 +43,16 @@ class UIPlayerViewController: MXPlayerViewController {
         let pausebtn = UIButton.init(type: .Custom)
         pausebtn.setTitle("pause", forState: .Normal)
         pausebtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        pausebtn.frame = CGRect.init(x: 100, y: 20, width: 50, height: 50)
+        pausebtn.frame = CGRect.init(x: 70, y: 20, width: 50, height: 50)
         pausebtn.addTarget(self, action: #selector(UIPlayerViewController.onTapPause), forControlEvents: .TouchUpInside)
         self.view.addSubview(pausebtn)
+
+        let scalebtn = UIButton.init(type: .Custom)
+        scalebtn.setTitle("scale", forState: .Normal)
+        scalebtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        scalebtn.frame = CGRect.init(x: 120, y: 20, width: 50, height: 50)
+        scalebtn.addTarget(self, action: #selector(UIPlayerViewController.onTapScale), forControlEvents: .TouchUpInside)
+        self.view.addSubview(scalebtn)
 
         
         textField.layer.cornerRadius = 1
@@ -97,6 +104,12 @@ extension UIPlayerViewController {
     func onTapPause() -> Void {
         self.pause()
     }
+    
+    func onTapScale() -> Void {
+        self.orientationLandScapeLeft = !orientationLandScapeLeft
+//        self.switchScaleMode(.aspectFill)
+    }
+
 }
 
 extension UIPlayerViewController {

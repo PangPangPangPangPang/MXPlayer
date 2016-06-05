@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		501F160A1CFD911F006816FC /* MXPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501F16091CFD911F006816FC /* MXPlayerProtocol.swift */; };
-		5068F02D1D01D8340055896A /* anim_page_transformer_zoomout.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5068F02C1D01D8340055896A /* anim_page_transformer_zoomout.mp4 */; };
 		507A09501D0006C200C751A7 /* MXPlayerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A094F1D0006C200C751A7 /* MXPlayerEnum.swift */; };
 		507A09531D000C4A00C751A7 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A09521D000C4A00C751A7 /* AudioSessionManager.swift */; };
 		5082DFF81D016EA600B929C6 /* UIPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */; };
@@ -43,7 +42,6 @@
 
 /* Begin PBXFileReference section */
 		501F16091CFD911F006816FC /* MXPlayerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerProtocol.swift; sourceTree = "<group>"; };
-		5068F02C1D01D8340055896A /* anim_page_transformer_zoomout.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = anim_page_transformer_zoomout.mp4; sourceTree = "<group>"; };
 		507A094F1D0006C200C751A7 /* MXPlayerEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MXPlayerEnum.swift; sourceTree = "<group>"; };
 		507A09521D000C4A00C751A7 /* AudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		5082DFF71D016EA600B929C6 /* UIPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPlayerViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 		50EA8FCC1CEEBCF700D50C4F = {
 			isa = PBXGroup;
 			children = (
-				5068F02C1D01D8340055896A /* anim_page_transformer_zoomout.mp4 */,
 				50EA900A1CEEBD5100D50C4F /* AVFoundation.framework */,
 				50EA90091CEEBD1400D50C4F /* Source */,
 				50EA8FD71CEEBCF700D50C4F /* MXPlayer */,
@@ -246,7 +243,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50EA8FE61CEEBCF700D50C4F /* LaunchScreen.storyboard in Resources */,
-				5068F02D1D01D8340055896A /* anim_page_transformer_zoomout.mp4 in Resources */,
 				50EA8FE31CEEBCF700D50C4F /* Assets.xcassets in Resources */,
 				50EA8FDE1CEEBCF700D50C4F /* Main.storyboard in Resources */,
 			);

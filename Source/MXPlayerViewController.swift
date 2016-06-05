@@ -19,8 +19,23 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     var duration: NSTimeInterval! = 0
     var playableDuration: NSTimeInterval! = 0
     var loadState: MXPlayerLoadState! = .unknown
-    var naturalSize: CGSize! = CGSize.init(width: 10, height: 10)
-    var scalingMode: MXPlayerScaleMode! = .aspectFit
+    var originFrame: CGRect! = CGRectZero
+    var scalingMode: MXPlayerScaleMode! {
+        didSet {
+            let layer = playerView.layer as! AVPlayerLayer
+            switch scalingMode as MXPlayerScaleMode {
+            case .none, .aspectFit:
+                layer.videoGravity = AVLayerVideoGravityResizeAspect
+                break
+            case .aspectFill:
+                layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                break
+            case .Fill:
+                layer.videoGravity = AVLayerVideoGravityResize
+                break
+            }
+        }
+    }
     var shouldAutoPlay: Bool! = false
     var allowsMediaAirPlay :Bool! = false
     var isDanmakuMediaAirPlay: Bool! = false
@@ -41,6 +56,21 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
                 break
             }
             print("bufferState:\(bufferState)")
+        }
+    }
+    
+    var orientationLandScapeLeft: Bool! {
+        didSet {
+            let value: Int!
+            if orientationLandScapeLeft == true {
+                value = UIInterfaceOrientation.LandscapeLeft.rawValue
+                UIDevice.currentDevice().setValue(value, forKey: "orientation")
+                playerView.frame = UIScreen.mainScreen().bounds
+            } else {
+                value = UIInterfaceOrientation.Portrait.rawValue
+                UIDevice.currentDevice().setValue(value, forKey: "orientation")
+                playerView.frame = originFrame
+            }
         }
     }
     
@@ -77,6 +107,8 @@ class MXPlayerViewController: UIViewController,MXPlayerCallBack, MXPlayerProtoco
     init(url: NSURL?) {
         super.init(nibName: nil, bundle: nil)
         self.url = url
+        orientationLandScapeLeft = false
+        scalingMode = .Fill
         bufferState = .unknown
         movieState = .stopped
         AudioSessionManager.shareInstance.audioSession()
@@ -152,8 +184,10 @@ extension MXPlayerViewController {
         if player == nil {
             player = MXPlayer.init(item: item, delegate: self)
             playerView = MXPlayerView.init(player: player, frame: UIScreen.mainScreen().bounds);
+            originFrame = playerView.frame
             playerView.userInteractionEnabled = false
             self.view.addSubview(playerView)
+            self.view.insertSubview(playerView, atIndex: 0)
         } else {
             self.pause()
             player.changePlayerItem(item)
@@ -181,6 +215,11 @@ extension MXPlayerViewController {
     func shutDown() -> Void {
         
     }
+    
+    func switchScaleMode(mode: MXPlayerScaleMode!) -> Void {
+        scalingMode = mode
+    }
+
     func flashImage() -> UIImage {
         return UIImage()
     }

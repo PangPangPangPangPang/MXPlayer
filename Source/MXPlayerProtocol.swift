@@ -16,6 +16,7 @@ protocol MXPlayerProtocol {
     func stop() -> Void
     func isPlayer() -> Bool
     func shutDown() -> Void
+    func switchScaleMode(mode: MXPlayerScaleMode!) -> Void
     func flashImage() -> UIImage
     func seekToTime(time: NSTimeInterval) -> Void
     
@@ -27,7 +28,7 @@ protocol MXPlayerProtocol {
     var movieState: MXPlayerMovieState!{get}
     var loadState: MXPlayerLoadState!{get}
     var bufferState: MXPlayerBufferState!{get}
-    var naturalSize: CGSize!{get}
+    var originFrame: CGRect!{get}
     var scalingMode: MXPlayerScaleMode!{get set}
     var shouldAutoPlay: Bool!{get set}
     var allowsMediaAirPlay :Bool!{get set}
